@@ -3,6 +3,7 @@ package com.example.developer.model;
 import jakarta.persistence.*;
 import lombok.NoArgsConstructor;
 import lombok.Data;
+import java.util.List;
 
 import java.time.LocalDateTime;
 
@@ -30,4 +31,5 @@ public class User {
     private String resetToken;
     @Column(name="reset_token_exp")
     private LocalDateTime resetTokenExpiry;
+
 }

@@ -15,4 +15,6 @@ public interface SkillRepo extends JpaRepository<skills,Long> {
 
 
 
+
+
 }

@@ -22,19 +22,21 @@ public class jwtUtils {
     {
 
         Key test= Keys.hmacShaKeyFor(JWT_Secret.getBytes());
-        System.out.println("getsigningkeys"+test);
+        System.out.println("getsigningkeys  "+test);
                 return test;
     }
     public String GenerateAcessToken(String email,String role)
     {
         System.out.print("this is acess token expiry time"+acesstokenexpery);
-        return Jwts.builder()
+        String token= Jwts.builder()
                 .setSubject(email)
                 .claim("role",role)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis()+acesstokenexpery))
                 .signWith(getsigningKey(), SignatureAlgorithm.HS256)
                 .compact();
+        System.out.println("acess token this "+token);
+        return token;
 
     }
     private Claims getclaims(String token)
