@@ -35,7 +35,7 @@ public class ProjectServices {
         pro.setCreated_at(LocalDateTime.now());
         pro.setUser(user);
         projrepo.save(pro);
-        if(projdto.getSkills()!=null&&projdto.getSkills().isEmpty())
+        if(projdto.getSkills()!=null&&!projdto.getSkills().isEmpty())
         {
             // for each loops
             for(SkillDTO skillDTO:projdto.getSkills())
@@ -46,8 +46,10 @@ public class ProjectServices {
                 skillrequed.setProject(pro);
                 skillRepo.save(skillrequed);
             }
+            return ResponseEntity.ok("project saved sucessfully");
         }
-        return ResponseEntity.ok("project saved sucessfully");
+        return ResponseEntity.ok("project requried atleast one skill to be added ");
+
     }
     // update exsiting project
     @Transactional

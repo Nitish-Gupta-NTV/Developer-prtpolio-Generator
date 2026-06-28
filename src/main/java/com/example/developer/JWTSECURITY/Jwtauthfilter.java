@@ -25,6 +25,7 @@ public class Jwtauthfilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException
     {
         System.out.println("enter the dofilter method ");
+        System.out.println("this is request ="+request+" this is responce "+response);
 
         String authHeader=request
                 .getHeader("Authorization");
@@ -40,12 +41,13 @@ public class Jwtauthfilter extends OncePerRequestFilter {
         {
             System.out.println(jwt.extractemailfromtoken(token));
             System.out.println(jwt.extractrolefromthetoken(token));
+            System.out.print("");
 
             String email=jwt.extractemailfromtoken(token);
             String role=jwt.extractrolefromthetoken(token);
             if(email!=null&& SecurityContextHolder.getContext().getAuthentication()==null)
             {
-                System.out.print(SecurityContextHolder.getContext().getAuthentication());
+                System.out.print("this is the security  acontext holder "+SecurityContextHolder.getContext().getAuthentication());
                 UserDetails userDetails=customuserdetailservices.loadUserByUsername(email);
                 UsernamePasswordAuthenticationToken authtoken=new UsernamePasswordAuthenticationToken(userDetails,null,userDetails.getAuthorities());
                 authtoken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));

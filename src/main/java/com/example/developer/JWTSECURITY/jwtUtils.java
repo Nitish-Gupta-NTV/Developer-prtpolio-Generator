@@ -31,6 +31,7 @@ public class jwtUtils {
         String token= Jwts.builder()
                 .setSubject(email)
                 .claim("role",role)
+
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis()+acesstokenexpery))
                 .signWith(getsigningKey(), SignatureAlgorithm.HS256)

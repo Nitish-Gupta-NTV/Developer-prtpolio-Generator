@@ -17,6 +17,8 @@ public class EducationsController {
     @PostMapping("/addeducation")
     public ResponseEntity<?> addeducation(@Valid @RequestBody EducationDto educationDto)
     {
+
+        System.out.println("enter the education controller" +educationDto);
         return eduactionServices.saveeducation(educationDto);
     }
 }

@@ -39,7 +39,4 @@ public class CertificationService {
         certirepo.delete(certi);
         return ResponseEntity.ok("certification deleted sucessfully");
     }
-
-
-
 }

@@ -1,6 +1,8 @@
 package com.example.developer.DTO;
 
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -18,5 +20,7 @@ public class ProjectDto {
     private String  image_url;
     private  boolean featured;
     private LocalDateTime created_at;
+    @NotEmpty(message = "Project must have at least one skill")
+    @Valid
     private List<SkillDTO> skills;
 }

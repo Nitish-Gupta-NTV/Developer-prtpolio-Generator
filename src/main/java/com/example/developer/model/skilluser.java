@@ -4,19 +4,19 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
 @Entity
 @Data
 @NoArgsConstructor
-@Table(name="skills")
-public class skills {
+@Table(name = "userskill")
+public class skilluser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String skills_name;
-    private String levels;
-    @ManyToOne
-    @JoinColumn( nullable = false)
-    private projects project;
+    private String  skill_name;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="user_id")
+    private User user;
+
+
 
 }

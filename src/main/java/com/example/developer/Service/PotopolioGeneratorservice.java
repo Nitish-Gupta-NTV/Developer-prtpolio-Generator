@@ -143,6 +143,11 @@ public class PotopolioGeneratorservice {
             responce.setSocialdto(socialdto);
 
         });
+
+
+
+
+
 return ResponseEntity.ok(responce);
     }
 

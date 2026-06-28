@@ -25,6 +25,6 @@ public class Skillsservices {
         skillsentity.setLevels(dto.getLevels());
         //skillsentity.setProject(projectRepo.findByUser(user));
         skillRepo.save(skillsentity);
-        return ResponseEntity.ok("skills save");
+        return ResponseEntity.ok("skills save sucessfullely");
     }
 }

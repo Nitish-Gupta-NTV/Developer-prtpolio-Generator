@@ -32,4 +32,8 @@ public class User {
     @Column(name="reset_token_exp")
     private LocalDateTime resetTokenExpiry;
 
+    @Column(name = " user_skillList")
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL,orphanRemoval = true)
+    private List<skilluser>skilluserList;
+
 }
