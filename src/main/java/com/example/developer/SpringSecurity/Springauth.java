@@ -1,13 +1,12 @@
 package com.example.developer.SpringSecurity;
 
 import com.example.developer.JWTSECURITY.Jwtauthfilter;
-import com.example.developer.Service.userloginmethod;
+import com.example.developer.Service.Imlementservices.userloginmethod;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -17,8 +16,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.stereotype.Component;
-
-import java.net.http.HttpRequest;
 
 @Component
 @EnableWebSecurity
@@ -35,6 +32,8 @@ public class Springauth {
     @Bean
     public AuthenticationProvider authenticationProvider() throws Exception
     {
+        System.out.println("enter the authentication provider com.example.developer.SpringSecurity");
+
         System.out.println("entering the user authentications");
         DaoAuthenticationProvider Provider=new DaoAuthenticationProvider();
         Provider.setUserDetailsService(custromuserloginmethod);
@@ -44,12 +43,13 @@ public class Springauth {
     @Bean
     public AuthenticationManager authenticationManager(org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration config) throws Exception
     {
+        System.out.println("enter the authentication Manager com.example.developer.SpringSecurity");
         return config.getAuthenticationManager();
     }
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception
     {
-        System.out.println("enter in the seecurity filter chain from the springauth");
+        System.out.println("enter in the seecurity filter chain from the springauth com.example.developer.SpringSecurity");
         http
                 .csrf(csrf->csrf.disable())
                 .sessionManagement(session->session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

@@ -1,15 +1,13 @@
-package com.example.developer.Service;
+package com.example.developer.Service.ResponceGenearatorServices;
 
 import com.example.developer.DTO.*;
+import com.example.developer.Service.Imlementservices.AuthenticatedUserlogined;
 import com.example.developer.model.Portfolio;
 import com.example.developer.model.User;
 import com.example.developer.model.projects;
 import com.example.developer.model.skills;
 import com.example.developer.model.experiences;
 import com.example.developer.model.certaficatios;
-import com.example.developer.model.skilluser;
-import com.example.developer.model.educations;
-import com.example.developer.model.socialmedia;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;

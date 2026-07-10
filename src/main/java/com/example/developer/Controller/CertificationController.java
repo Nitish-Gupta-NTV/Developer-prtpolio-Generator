@@ -1,6 +1,6 @@
 package com.example.developer.Controller;
 import com.example.developer.DTO.CertificationDto;
-import com.example.developer.Service.CertificationService;
+import com.example.developer.Service.Imlementservices.CertificationService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;

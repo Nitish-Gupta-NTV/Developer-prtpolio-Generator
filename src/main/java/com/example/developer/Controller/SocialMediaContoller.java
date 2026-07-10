@@ -1,6 +1,6 @@
 package com.example.developer.Controller;
 import com.example.developer.DTO.SocialMediaDTO;
-import com.example.developer.Service.SocialmediaServices;
+import com.example.developer.Service.Imlementservices.SocialmediaServices;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;

@@ -1,6 +1,5 @@
 package com.example.developer.JWTSECURITY;
 
-import com.example.developer.JWTSECURITY.jwtUtils;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -11,7 +10,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
-import com.example.developer.Service.userloginmethod;
+import com.example.developer.Service.Imlementservices.userloginmethod;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
@@ -24,7 +23,7 @@ public class Jwtauthfilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException
     {
-        System.out.println("enter the dofilter method ");
+        System.out.println("enter the dofilter method com.example.developer.JWTSECURITY ");
         System.out.println("this is request ="+request+" this is responce "+response);
 
         String authHeader=request

@@ -1,4 +1,4 @@
-package com.example.developer.Service;
+package com.example.developer.Service.Imlementservices;
 
 import com.example.developer.DTO.skilluserDto;
 import com.example.developer.DTO.skilluserWraperDTO;
@@ -8,7 +8,6 @@ import com.example.developer.model.skilluser;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.http.ResponseEntity;
 
 @Service
 @AllArgsConstructor

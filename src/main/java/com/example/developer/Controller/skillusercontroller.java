@@ -1,8 +1,7 @@
 package com.example.developer.Controller;
 
-import com.example.developer.DTO.skilluserDto;
 import com.example.developer.DTO.skilluserWraperDTO;
-import com.example.developer.Service.skilluserService;
+import com.example.developer.Service.Imlementservices.skilluserService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;

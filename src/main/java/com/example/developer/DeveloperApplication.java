@@ -9,6 +9,7 @@ public class DeveloperApplication {
 	public static void main(String[] args) {
 
         SpringApplication.run(DeveloperApplication.class, args);
+        System.out.println("Spring boot Application has been started");
 	}
 
 }

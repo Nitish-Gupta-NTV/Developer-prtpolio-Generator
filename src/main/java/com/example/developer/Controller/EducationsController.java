@@ -1,6 +1,6 @@
 package com.example.developer.Controller;
 import com.example.developer.DTO.EducationDto;
-import com.example.developer.Service.EduactionServices;
+import com.example.developer.Service.Imlementservices.EduactionServices;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;

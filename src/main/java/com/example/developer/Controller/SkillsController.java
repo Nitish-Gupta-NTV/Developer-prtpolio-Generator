@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.developer.DTO.SkillDTO;
-import com.example.developer.Service.Skillsservices;
+import com.example.developer.Service.Imlementservices.Skillsservices;
 
 @RestController
 @RequestMapping("/add/developer/skills")
