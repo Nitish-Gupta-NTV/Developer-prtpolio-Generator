@@ -7,6 +7,7 @@ import com.example.developer.model.projects;
 import com.example.developer.model.skills;
 import com.example.developer.model.experiences;
 import com.example.developer.model.certaficatios;
+import com.example.developer.model.skilluser;
 import com.example.developer.model.educations;
 import com.example.developer.model.socialmedia;
 import lombok.AllArgsConstructor;
@@ -19,6 +20,8 @@ import com.example.developer.Repository.ExperiencessRepo;
 import com.example.developer.Repository.ProjectRepo;
 import com.example.developer.Repository.SkillRepo;
 import com.example.developer.Repository.socialmediaRepo;
+import com.example.developer.Repository.skilluserRepo;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,12 +38,13 @@ public class PotopolioGeneratorservice {
     private final EducationRepo edurepo;
     private final CertaficationsRepo certirepo;
     private final socialmediaRepo socirepo;
+    private final skilluserRepo skilluserrepo;
 
 
     // fetch all thedetails send to the frontend for generating frontend part
     public ResponseEntity<?> generateportfolio ()
     {
-        User user=isuserlogined.userlogined();
+        User user=isuserlogined.userlogined(); // for checking whether user is logined or not
         // check whether the protfolio exits or not
         Portfolio prot=portrepo.findByUser(user).orElseThrow(()->new RuntimeException(" portfolio does not exits"));
         PortfolioResponceDto responce=new PortfolioResponceDto();
@@ -144,11 +148,13 @@ public class PotopolioGeneratorservice {
 
         });
 
+        //List<skilluser>skilluserdtoslist=skilluserrepo.findByUser(user);
 
 
 
 
-return ResponseEntity.ok(responce);
+
+     return ResponseEntity.ok(responce);
     }
 
 }
