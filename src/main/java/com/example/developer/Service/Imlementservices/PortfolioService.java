@@ -20,21 +20,21 @@ public class PortfolioService {
         User user=isuserlogin.userlogined();
         // if user does not exist then crete it
         Portfolio portfolio=protRepo.findByUser(user).orElse(new Portfolio());
-        portfolio.setTitle(prot.getTitle());
+        portfolio.setHeadline(prot.getHeadline());
         portfolio.setBio(prot.getBio());
-        portfolio.setLink(prot.getLink());
+        portfolio.setLocation(prot.getLocation());
         portfolio.setBio(prot.getBio());
         portfolio.setAbout(prot.getAbout());
         portfolio.setProfileimage(prot.getProfileimage());
         portfolio.setTheme_id(prot.getTheme_id());
         portfolio.setUser(user);
-        System.out.println(prot.getLink()+" "+prot.getTheme_id());
+        System.out.println(prot.getLocation()+" "+prot.getTheme_id());
         System.out.println("protoploia is saved sucssfully till now... from print statement portservice");
-        if(portfolio.getId()==null)
+       /*if(portfolio.getId()==null)
         {
             portfolio.setCreated_time(LocalDate.now());
         }
-        portfolio.setUpdate_time(LocalDate.now());
+        portfolio.setUpdate_time(LocalDate.now());*/
         protRepo.save(portfolio); // checking is requried
         return ResponseEntity.ok("portfolio is saved Successfully");
     }

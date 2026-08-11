@@ -10,13 +10,13 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class PortfolioDTO {
     @NotBlank(message = "Title is requried")
-    private String Title;
-    private String link;
+    private String headline;
+    private String location;
     private String bio;
     private String about;
     private String profileimage;
     private Long theme_id;
    // private boolean is_published;
-    private LocalDate created_time;
-    private LocalDate update_time;
+   // private LocalDate created_time;
+   // private LocalDate update_time;
 }

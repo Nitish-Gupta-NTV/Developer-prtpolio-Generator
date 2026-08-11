@@ -10,10 +10,10 @@ public class PortfolioResponceDto {
     private String name;
     private String email;
     private Long phonenumber;
-    private String title;
+    private String headline;
     private String bio;
     private String about;
-    private String link;
+    private String location;
     private String profileImage;
     private Long themeId;
     private boolean isPublished;

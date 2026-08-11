@@ -12,10 +12,12 @@ public class educations {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String high_schooling;
-    private String secondary_schooling;
-    private String bachelor;
-    private String postgraducation;
+    private String educationlevel;
+    private String institution;
+    private String  educationame;
+    private String grade;
+    private Integer passingYear;
+    private boolean ongoing;
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;

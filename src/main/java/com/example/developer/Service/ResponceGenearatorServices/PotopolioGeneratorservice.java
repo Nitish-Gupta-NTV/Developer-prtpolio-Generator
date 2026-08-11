@@ -51,10 +51,10 @@ public class PotopolioGeneratorservice {
         responce.setName(user.getName());
         responce.setPhonenumber(user.getPhonenumber());
         // portfolio info
-        responce.setTitle(prot.getTitle());
+        responce.setHeadline(prot.getHeadline());
         responce.setBio(prot.getBio());
         responce.setAbout(prot.getAbout());
-        responce.setLink(prot.getLink());
+        responce.setLocation(prot.getLocation());
        responce.setProfileImage(prot.getProfileimage());
         responce.setThemeId(prot.getTheme_id());
         responce.setPublished(prot.is_published());
@@ -113,10 +113,12 @@ public class PotopolioGeneratorservice {
 
         edurepo.findByUser(user).ifPresent(educations -> {
             EducationDto edudto=new EducationDto();
-            edudto.setHigh_schooling(educations.getHigh_schooling());
-            edudto.setSecondary_schooling(educations.getHigh_schooling());
-            edudto.setBachelor(educations.getBachelor());
-            edudto.setPostgraducation(educations.getPostgraducation());
+            edudto.setInstitution(educations.getInstitution());
+            edudto.setEducationlevel(educations.getEducationlevel());
+            edudto.setGrade(educations.getGrade());
+            edudto.setPassingYear(educations.getPassingYear());
+            edudto.setOngoing(educations.isOngoing());
+            edudto.setEducationame(educations.getEducationame());
             responce.setEducationdto(edudto);
 
         });
