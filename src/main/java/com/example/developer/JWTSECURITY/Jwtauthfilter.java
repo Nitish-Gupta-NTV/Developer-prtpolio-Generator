@@ -1,6 +1,6 @@
 package com.example.developer.JWTSECURITY;
 
-import jakarta.servlet.FilterChain;
+/*import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -36,6 +36,7 @@ public class Jwtauthfilter extends OncePerRequestFilter {
         }
         String token=authHeader.substring(7);
       //  if(jwt.validatetoken(token))
+
         if(jwt.validatetoken(token))
         {
             System.out.println(jwt.extractemailfromtoken(token));
@@ -53,8 +54,102 @@ public class Jwtauthfilter extends OncePerRequestFilter {
                 SecurityContextHolder.getContext().setAuthentication(authtoken);
             }
         }
+
             filterChain.doFilter(request,response);
         System.out.println("dofilter passes sucessfully");
     }
 
+}*/
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import lombok.AllArgsConstructor;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
+import org.springframework.stereotype.Component;
+import org.springframework.web.filter.OncePerRequestFilter;
+
+import com.example.developer.Service.Imlementservices.userloginmethod;
+
+import io.jsonwebtoken.JwtException;
+
+import java.io.IOException;
+
+@Component
+@AllArgsConstructor
+public class Jwtauthfilter extends OncePerRequestFilter {
+
+    private final jwtUtils jwt;
+    private final userloginmethod customuserdetailservices;
+
+    @Override
+    protected void doFilterInternal(
+            HttpServletRequest request,
+            HttpServletResponse response,
+            FilterChain filterChain)
+            throws ServletException, IOException {
+
+        System.out.println("enter the dofilter method");
+
+        String authHeader = request.getHeader("Authorization");
+
+        // No Authorization header
+        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+
+        String token = authHeader.substring(7);
+
+        try {
+
+            if (jwt.validatetoken(token)) {
+
+                String email = jwt.extractemailfromtoken(token);
+                String role = jwt.extractrolefromthetoken(token);
+
+                System.out.println("Email: " + email);
+                System.out.println("Role: " + role);
+
+                if (email != null &&
+                        SecurityContextHolder.getContext().getAuthentication() == null) {
+
+                    UserDetails userDetails =
+                            customuserdetailservices.loadUserByUsername(email);
+
+                    UsernamePasswordAuthenticationToken authToken =
+                            new UsernamePasswordAuthenticationToken(
+                                    userDetails,
+                                    null,
+                                    userDetails.getAuthorities()
+                            );
+
+                    authToken.setDetails(
+                            new WebAuthenticationDetailsSource()
+                                    .buildDetails(request)
+                    );
+
+                    SecurityContextHolder
+                            .getContext()
+                            .setAuthentication(authToken);
+                }
+            }
+
+            filterChain.doFilter(request, response);
+
+        } catch (JwtException e) {
+
+            System.out.println("JWT error: " + e.getMessage());
+
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            response.setContentType("application/json");
+
+            response.getWriter().write(
+                    "{\"error\":\"Invalid or expired JWT token\"}"
+            );
+        }
+    }
 }

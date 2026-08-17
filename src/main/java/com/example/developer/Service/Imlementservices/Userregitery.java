@@ -13,6 +13,9 @@ import com.example.developer.model.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.MailException;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
@@ -30,6 +33,7 @@ private final RefreshtokenRepository refreshtokenRepository;
 private final PasswordEncoder passwordEncoder;
 private final jwtUtils jwt;
 private  final AuthenticationManager authenticationManager;
+private final JavaMailSender mailSender;
 
 
 @Value("${jwt.refresh-token-expiry}")
@@ -61,9 +65,14 @@ public ResponseEntity<?> regsiteruser(User user)
     if (!user.getRole().startsWith("ROLE_")) {
         user.setRole("ROLE_" + user.getRole());
     }
+
     user.setPassword(passwordEncoder.encode(user.getPassword()));
-    repo.save(user);
-    return ResponseEntity.ok("user Register Sucessfully");
+    if (sendmailforsucessfullregistery(user.getEmail())) {
+        repo.save(user);
+        return ResponseEntity.ok("user Register Sucessfully");
+    }
+    return ResponseEntity.badRequest().body("not able to register the user");
+
 
 
 }
@@ -179,6 +188,23 @@ public ResponseEntity<?> loginuser(Login request)      // this login is comming 
         );
         mailSender.send(message);
     }*/
+    private boolean sendmailforsucessfullregistery(String mail)
+    {
+        try {
+            SimpleMailMessage message=new SimpleMailMessage();
+            message.setTo(mail);
+            message.setSubject("you have sucessfully register to our application Developer prtopolio Generator");
+            message.setText("Hello,/n/n"+
+                    " congurlation you have sucessfully registred to our applicatio "+
+                    "/n/n"+"for any  query you can connect to nitishgupta ");
+            mailSender.send(message);
+            return true;
+        } catch (MailException e) {
+            System.out.println("message for sedning the mail"+e);
+            return false;
+
+        }
+    }
 
 
 

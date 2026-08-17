@@ -5,7 +5,6 @@ import com.example.developer.DTO.Refreshtokenrequset;
 import com.example.developer.DTO.Register;
 import com.example.developer.DTO.forgotpassword;
 import com.example.developer.DTO.resetpassword;
-import com.example.developer.Service.ResponceGenearatorServices.PotopolioGeneratorservice;
 import com.example.developer.Service.Imlementservices.Userregitery;
 import com.example.developer.model.User;
 import jakarta.validation.Valid;
@@ -22,13 +21,6 @@ import org.springframework.web.bind.annotation.*;
 public class UserAuthentication {
 
     private Userregitery services_function;
-    private final PotopolioGeneratorservice potopolioGeneratorservice;
-    @GetMapping("/see") // this is public everyone see the this
-    public ResponseEntity<?> portfoliogenerator()
-    {
-
-        return potopolioGeneratorservice.generateportfolio();
-    }
     @PostMapping("/register")
     public ResponseEntity<?> register(@Valid @RequestBody Register resgister)
     {
@@ -68,11 +60,7 @@ public class UserAuthentication {
     {
         return services_function.restpassword_method(requset);
     }
-    @PostMapping("/logout")
-    public ResponseEntity<?> logout_function(@AuthenticationPrincipal UserDetails requset)
-    {
-        return services_function.logout_Method(requset.getUsername());
-    }
+
     // only for the testing
 
 

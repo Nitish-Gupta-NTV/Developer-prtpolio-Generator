@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Data
@@ -23,6 +24,10 @@ public class Portfolio
     private boolean is_published;
     private LocalDate created_time;
     private LocalDate update_time;
+    @Column(unique = true, nullable = false)
+    private String slug;
+    private Long viewCount = 0L;
+    private LocalDateTime lastViewedAt;
     @OneToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;

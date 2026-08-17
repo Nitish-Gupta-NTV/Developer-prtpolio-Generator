@@ -16,6 +16,8 @@ public class PortfolioDTO {
     private String about;
     private String profileimage;
     private Long theme_id;
+    private String slug;
+
    // private boolean is_published;
    // private LocalDate created_time;
    // private LocalDate update_time;

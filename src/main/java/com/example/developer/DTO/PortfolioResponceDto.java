@@ -16,11 +16,13 @@ public class PortfolioResponceDto {
     private String location;
     private String profileImage;
     private Long themeId;
+    private String Slug;
     private boolean isPublished;
     private List<ProjectResponceDto>proresponce;
     private List<experienceDTO>experienceDTOS;
     private EducationDto educationdto;
     private List<CertificationDto>certidto;
     private SocialMediaDTO socialdto;
+    private  List<skilluserDto>userskilldto;
 
 }

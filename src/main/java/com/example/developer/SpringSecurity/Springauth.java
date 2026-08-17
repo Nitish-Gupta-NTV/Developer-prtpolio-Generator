@@ -38,6 +38,8 @@ public class Springauth {
     private final userloginmethod custromuserloginmethod;
     @Value("${frontend_url}")
     private String frontend_url;
+    @Value("${ipurl}")
+    private String ipurl;
     @Bean
     public PasswordEncoder passwordEncoder()
     {
@@ -47,8 +49,8 @@ public class Springauth {
     public CorsConfigurationSource corsConfigurationSource()
     {
         CorsConfiguration config=new CorsConfiguration();
-        config.setAllowedOrigins(List.of(frontend_url));
-        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        config.setAllowedOrigins(List.of(frontend_url,ipurl));
+        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE","PATCH", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
         config.setAllowCredentials(true);
         UrlBasedCorsConfigurationSource urlsource=new UrlBasedCorsConfigurationSource();
@@ -84,8 +86,12 @@ public class Springauth {
                 .authorizeHttpRequests(auth->auth
                         .requestMatchers("/api/auth/**")
                         .permitAll()
+                        .requestMatchers("/api/portfolio/public/**").permitAll()
+                       // .requestMatchers("/api/auth/logout").authenticated()
+
                         .requestMatchers("/api/admin/**").hasRole("ADMIN")
                         //.requestMatchers("/api/developer/**").hasRole("Developer")
+                        .requestMatchers("/api/portfolio/public/**").permitAll()
                         .requestMatchers("/api/developer/**").hasRole("DEVELOPER")
                        // .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         .anyRequest().authenticated()
