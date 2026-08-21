@@ -2,16 +2,15 @@ package com.example.developer.DTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-
 import java.time.LocalDateTime;
+
 @Data
 @AllArgsConstructor
-public class ContactMessageDTO {
+public class ConversationSummaryDTO {
     private Long id;
-    private String senderName;
-    private String senderEmail;
+    private String visitorName;
     private String subject;
-    private String message;
-    private boolean isRead;
-    private LocalDateTime createdAt;
+    private String lastMessagePreview;
+    private LocalDateTime updatedAt;
+    private boolean ownerUnread;
 }

@@ -15,7 +15,7 @@ public class PortfolioResponceDto {
     private String about;
     private String location;
     private String profileImage;
-    private Long themeId;
+    private themeDto theme;
     private String Slug;
     private boolean isPublished;
     private List<ProjectResponceDto>proresponce;

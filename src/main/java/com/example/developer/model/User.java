@@ -1,15 +1,20 @@
 package com.example.developer.model;
 
 import jakarta.persistence.*;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Data;
+import lombok.Setter;
+
 import java.util.List;
 
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "users")
-@Data
+//@Data
+@Getter
+@Setter
 @NoArgsConstructor
 public class User {
     @Id
@@ -23,9 +28,9 @@ public class User {
    private String role;
     @Column(nullable = false)
    private String name;
-    @Column(name = "phonenumber", nullable = false)
+    @Column(name = "phonenumber", nullable = false,unique = true)
    private Long phonenumber;
-    @Column(nullable = false)
+    @Column(nullable = false,unique = true)
    private String email;
     @Column(name = "reset_token")
     private String resetToken;

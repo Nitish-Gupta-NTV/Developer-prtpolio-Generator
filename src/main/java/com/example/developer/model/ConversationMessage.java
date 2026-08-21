@@ -1,4 +1,5 @@
 package com.example.developer.model;
+
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -7,24 +8,24 @@ import java.time.LocalDateTime;
 @Entity
 @Data
 @NoArgsConstructor
-public class ContactMessage {
+public class ConversationMessage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String senderName;
-    private String senderEmail;
-    private String subject;
+    public enum Sender { VISITOR, OWNER }
+
+    @Enumerated(EnumType.STRING)
+    private Sender sender;
 
     @Column(length = 2000)
-    private String message;
+    private String body;
 
-    private boolean isRead = false;
     private LocalDateTime createdAt;
 
     @ManyToOne
-    @JoinColumn(name = "portfolio_id", nullable = false)
-    private Portfolio portfolio;
+    @JoinColumn(name = "conversation_id", nullable = false)
+    private Conversation conversation;
 
     @PrePersist
     protected void onCreate() {

@@ -2,26 +2,13 @@ package com.example.developer.Service.ResponceGenearatorServices;
 
 import com.example.developer.DTO.*;
 import com.example.developer.GlobalExceptionHandler.PortfolioNotPublishedException;
+import com.example.developer.Repository.*;
 import com.example.developer.Service.Imlementservices.AuthenticatedUserlogined;
-import com.example.developer.model.Portfolio;
-import com.example.developer.model.User;
-import com.example.developer.model.projects;
-import com.example.developer.model.skills;
-import com.example.developer.model.experiences;
-import com.example.developer.model.certaficatios;
-import com.example.developer.model.skilluser;
+import com.example.developer.model.*;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import com.example.developer.Repository.PortfolioRepo;
-import com.example.developer.Repository.CertaficationsRepo;
-import com.example.developer.Repository.EducationRepo;
-import com.example.developer.Repository.ExperiencessRepo;
-import com.example.developer.Repository.ProjectRepo;
-import com.example.developer.Repository.SkillRepo;
-import com.example.developer.Repository.socialmediaRepo;
-import com.example.developer.Repository.skilluserRepo;
 import com.example.developer.GlobalExceptionHandler.PortfolioNotFoundException;
 
 
@@ -41,135 +28,11 @@ public class PotopolioGeneratorservice {
     private final CertaficationsRepo certirepo;
     private final socialmediaRepo socirepo;
     private final skilluserRepo skilluserrepo;
-
-/*
-    // fetch all thedetails send to the frontend for generating frontend part
-    public ResponseEntity<?> generateportfolio ()
-    {
-        User user=isuserlogined.userlogined(); // for checking whether user is logined or not
-        // check whether the protfolio exits or not
-        Portfolio prot=portrepo.findByUser(user).orElseThrow(()->new RuntimeException(" portfolio does not exits"));
-        PortfolioResponceDto responce=new PortfolioResponceDto();
-        // basic info
-        responce.setEmail(user.getEmail());
-        responce.setName(user.getName());
-        responce.setPhonenumber(user.getPhonenumber());
-        // portfolio info
-        responce.setHeadline(prot.getHeadline());
-        responce.setBio(prot.getBio());
-        responce.setAbout(prot.getAbout());
-        responce.setLocation(prot.getLocation());
-       responce.setProfileImage(prot.getProfileimage());
-        responce.setThemeId(prot.getTheme_id());
-        responce.setPublished(prot.is_published());
-        // responce.setThemeId(prot.getTheme_id()); // it maay due to the relation is not going to build
-       responce.setPublished(prot.is_published());
-       responce.setSlug(prot.getSlug());
-
-       // now project section turns
-
-        List<projects> proj=prorjepo.findByUser(user);
-        List<ProjectResponceDto> projdto=new ArrayList<>();
-        // using the for each loop  to enter the project details
-        for(projects  projentity:proj) {
-            ProjectResponceDto projectResponceDto = new ProjectResponceDto();
-            projectResponceDto.setId(projentity.getId());
-            projectResponceDto.setTitle(projentity.getTitle());
-            projectResponceDto.setDescription(projentity.getDescription());
-            projectResponceDto.setGithubUrl(projentity.getGithub_url());
-            projectResponceDto.setLiveUrl(projentity.getLive_url());
-            projectResponceDto.setImageUrl(projentity.getImage_url());
-            projectResponceDto.setFeatured(projentity.isFeatured());
-
-            // adding the skill in the project section
-            List<skills> skillsList = skillrepo.findByProject(projentity);
-            List<SkillDTO>skilldto=new ArrayList<>();
-            for (skills skillentity:skillsList)
-            {
-                SkillDTO skilldtofor=new SkillDTO();
-                skilldtofor.setSkillsname(skillentity.getSkills_name());
-                skilldtofor.setLevels(skillentity.getLevels());
-                skilldto.add(skilldtofor);
-            }
-            projectResponceDto.setSkilldto(skilldto);
-            projdto.add(projectResponceDto);
-        }
-        responce.setProresponce(projdto);
-
-
-        // now adding the experiences
-        List<experiences> experentity=exprepo.findByUser(user);
-        List<experienceDTO> expdto=new ArrayList<>();
-        for (experiences exp:experentity)
-        {
-            experienceDTO exptdtofor=new experienceDTO();
-            exptdtofor.setCompany(exp.getCompany());
-            exptdtofor.setPosition(exp.getPosition());
-            exptdtofor.setStartdate(exp.getStartdate());
-            exptdtofor.setEnddate(exp.getEnddate());
-            exptdtofor.setCurrentworking(exp.isCurrentworking());
-            exptdtofor.setDescription(exp.getDescription());
-            expdto.add(exptdtofor);
-        }
-        responce.setExperienceDTOS(expdto);
-
-
-        // now adding the education details
-
-        edurepo.findByUser(user).ifPresent(educations -> {
-            EducationDto edudto=new EducationDto();
-            edudto.setInstitution(educations.getInstitution());
-            edudto.setEducationlevel(educations.getEducationlevel());
-            edudto.setGrade(educations.getGrade());
-            edudto.setPassingYear(educations.getPassingYear());
-            edudto.setOngoing(educations.isOngoing());
-            edudto.setEducationame(educations.getEducationame());
-            responce.setEducationdto(edudto);
-
-        });
-
-        //Now adding the Certifications
-
-        List<certaficatios>certaficatiosList=certirepo.findByUser(user);
-        List<CertificationDto>certdto=new ArrayList<>();
-        for(certaficatios certentiy:certaficatiosList)
-        {
-            CertificationDto certificationDto=new CertificationDto();
-            certificationDto.setTitle(certentiy.getTitle());
-            certificationDto.setDescscribe(certentiy.getDescscribe());
-            certificationDto.setDescscribe(certentiy.getDescscribe());
-            certificationDto.setIssued_date(certentiy.getIssued_date());
-            certdto.add(certificationDto);
-        }
-        responce.setCertidto(certdto); //adding certifications
-
-        //Now adding the Socialmedia Responce data from the database
-        socirepo.findByUser(user).ifPresent(socialmedia -> {
-            SocialMediaDTO socialdto=new SocialMediaDTO();
-            socialdto.setGithub(socialmedia.getGithub());
-            socialdto.setLinkedine(socialmedia.getLinkedine());
-            socialdto.setCodingp_platform(socialmedia.getCodingp_platform());
-            responce.setSocialdto(socialdto);
-
-        });
-
-        //List<skilluser>skilluserdtoslist=skilluserrepo.findByUser(user);
+    private final ThemeRepo repotheme;
 
 
 
 
-
-     return ResponseEntity.ok(responce);
-    }
-    public ResponseEntity<?> getPublicPortfolio(String slug){
-        Portfolio prot=portrepo.findBySlug(slug).orElseThrow(()-> new PortfolioNotFoundException("prtoplio not found exception") );
-        if(!prot.is_published())
-        {
-            throw new PortfolioNotPublishedException("prtopolio not published ");
-
-        }
-        return generateportfolio();
-    }*/
 // fetch all the details, send to the frontend for generating frontend part
 public ResponseEntity<?> generateportfolio() {
     User user = isuserlogined.userlogined();
@@ -212,7 +75,16 @@ public ResponseEntity<?> generateportfolio() {
         responce.setAbout(prot.getAbout());
         responce.setLocation(prot.getLocation());
         responce.setProfileImage(prot.getProfileimage());
-        responce.setThemeId(prot.getTheme_id());
+        if(prot.getTheme_id()!=null)
+        {
+            theme  t= repotheme.findById(prot.getTheme_id()).orElse(null);
+            if(t!=null)
+            {
+                responce.setTheme(new themeDto(t.getId(),t.getLayout_type(),t.getFont_family(),t.getPrimary_colour(),t.getSecondary_colour()));
+
+            }
+        }
+       // responce.setThemeId(prot.getTheme_id());
         responce.setPublished(prot.is_published());
         responce.setSlug(prot.getSlug());
 
@@ -295,6 +167,8 @@ public ResponseEntity<?> generateportfolio() {
             socialdto.setCodingp_platform(socialmedia.getCodingp_platform());
             responce.setSocialdto(socialdto);
         });
+
+
 
         return responce;
     }

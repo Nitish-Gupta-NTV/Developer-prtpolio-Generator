@@ -11,7 +11,7 @@ import com.example.developer.Service.Imlementservices.PortfolioService;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api/developer/portfolio")
-public class portfolioController {
+public class PortpolioController {
     private final PortfolioService portfolioService;
 
 
@@ -35,7 +35,6 @@ public class portfolioController {
          System.out.println("requesst is reaching tocontroller and the for checkslug"+Slug);
          return portfolioService.checkSlugAvailability(Slug);
      }
-    // @PostMapping("/ispublish")
     @PatchMapping("/ispublish")
     public ResponseEntity<?> toggle()
      {

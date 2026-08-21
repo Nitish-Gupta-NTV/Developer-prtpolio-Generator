@@ -1,10 +1,7 @@
 package com.example.developer.Controller;
 
-import com.example.developer.DTO.Login;
-import com.example.developer.DTO.Refreshtokenrequset;
-import com.example.developer.DTO.Register;
-import com.example.developer.DTO.forgotpassword;
-import com.example.developer.DTO.resetpassword;
+import com.example.developer.DTO.*;
+import com.example.developer.Service.Imlementservices.OtpService;
 import com.example.developer.Service.Imlementservices.Userregitery;
 import com.example.developer.model.User;
 import jakarta.validation.Valid;
@@ -21,24 +18,17 @@ import org.springframework.web.bind.annotation.*;
 public class UserAuthentication {
 
     private Userregitery services_function;
+    private OtpService otp;
     @PostMapping("/register")
-    public ResponseEntity<?> register(@Valid @RequestBody Register resgister)
+    public ResponseEntity<?> register(@Valid @RequestBody VerifyOtpRequest resgister)
     {
         System.out.println("request being hitting the register controller ");
-        try {
-            User user = new User();
-            user.setPassword(resgister.getPassword());
-            user.setEmail(resgister.getEmail());
-            user.setName(resgister.getName());
-            user.setUsername(resgister.getUser_name());
-            user.setPhonenumber(resgister.getPhone_number());
-            user.setRole(resgister.getRole());
-            return services_function.regsiteruser(user);
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body("catch block executed"+e.getMessage());
+         System.out.println("data received at controller"+resgister);
+
+            return services_function.regsiteruser(resgister);
         }
 
-    }
+
     @PostMapping("/login")
     public ResponseEntity<?> loginuser(@Valid @RequestBody Login request)
     {
@@ -76,4 +66,10 @@ public class UserAuthentication {
         return ResponseEntity.ok("Welcome Admin!");
     }
 
+    @PostMapping("/register/send-otp")
+    public ResponseEntity<?> sendRegistrationOtp(@Valid @RequestBody Register register)
+    {
+       return otp.validateduser(register);
+
+    }
 }
